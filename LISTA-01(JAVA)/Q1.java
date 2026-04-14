@@ -1,4 +1,6 @@
-package POO2026.java.lista001;
+/* A classe deve ter um atributo raio para armazenar a dimensão da figura e métodos para calcular sua área e sua
+circunferência.
+Escrever um programa para testar a classe.*/
 
 class Circulo {
     public double raio = 0;
