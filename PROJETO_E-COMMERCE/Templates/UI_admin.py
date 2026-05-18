@@ -15,7 +15,7 @@ class UIadmin:
             if op == 1: UIadmin.Menu_cliente()
             if op == 2: UIadmin.Menu_produto()
             if op == 3: UIadmin.Menu_categoria()
-            if op == 4: UIadmin.listar_vendas() 
+            if op == 4: UIadmin.listar_vendas_por_cliente()
             if op == 9: 
                 print("DESLIGANDO...")
                 return 9
@@ -31,14 +31,19 @@ class UIadmin:
         return UIadmin.Ler_Opcao()
 
     @staticmethod
-    def listar_vendas():
-        print("\n-- LISTA DE VENDAS (TODOS OS CLIENTES) --")
-        vendas = View.listar_vendas()
-        if not vendas:
-            print("Nenhuma venda realizada ainda.")
-        else:
-            for v in vendas:
-                print(v)
+    def listar_vendas_por_cliente():
+        print("\n-- VENDAS POR CLIENTE --")
+        try:
+            id_cliente = int(input("Digite o ID do cliente: "))
+            vendas = View.listar_vendas_cliente(id_cliente)
+            
+            if not vendas:
+                print("Nenhuma venda encontrada para este cliente.")
+            else:
+                for v in vendas:
+                    print(v)
+        except ValueError:
+            print("Entrada inválida! Por favor, digite um número inteiro para o ID.")
     
     # ==========================================
     # MENU E CRUD: CLIENTE
@@ -221,3 +226,5 @@ class UIadmin:
         desc = input("Nova Descrição: ")
         View.atualizar_categoria(id_cat, desc)
         print("Categoria atualizada com sucesso!")
+
+    

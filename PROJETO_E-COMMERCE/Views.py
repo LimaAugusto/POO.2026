@@ -125,6 +125,12 @@ class View:
             ProdutoDAO().Atualizar(p)
             
     @staticmethod
-    def listar_vendas():
-        return VendaDAO().Listar()
+    def listar_vendas_cliente(id_cliente):
+        todas_vendas = VendaDAO().Listar()
+        vendas_do_cliente = []
+        for venda in todas_vendas:
+            # Compara o ID salvo na venda com o ID procurado
+            if venda.getId_Cliente() == id_cliente:
+                vendas_do_cliente.append(venda)
+        return vendas_do_cliente
     #--------- NOVOS MÉTODOS (VENDAS E REAJUSTE) ----------
