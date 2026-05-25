@@ -34,7 +34,7 @@ class UI:
                 if admin: 
                     if UIadmin.Main() == 9: UI.usuario_sair()
                 else: 
-                    if UIcliente.Main() == 9: UI.usuario_sair()
+                    if UIcliente.Main(cls.__usuario["id"]) == 9: UI.usuario_sair()
 
     @classmethod
     def visitante_entrar(cls):

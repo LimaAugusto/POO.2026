@@ -86,11 +86,12 @@ class View:
 
     #--------- CRUD CARRINHO ----------
     @staticmethod
-    def inserir_produto_carrinho(quantidade, id_produto):
+    def inserir_produto_carrinho(quantidade, id_produto, id_cliente):
         produto = ProdutoDAO().Listar_ID(id_produto)
         if produto is None:
             return False
-        item = Carrinho(id = 0,  desc = produto.desc, quantidade = quantidade, id_produto = id_produto)
+        # Agora o construtor de Carrinho recebe também o id_cliente
+        item = Carrinho(id = 0, desc = produto.desc, quantidade = quantidade, id_produto = id_produto, id_cliente = id_cliente)
         CarrinhoDAO().Inserir_produto(item)
         return True
 
@@ -99,20 +100,20 @@ class View:
         return ProdutoDAO().Listar()
     
     @staticmethod
-    def listar_compras():
-        return CarrinhoDAO().Listar_compras()
+    def listar_compras(id_cliente):
+        return CarrinhoDAO().Listar_compras(id_cliente)
     
     @staticmethod
-    def limpar_carrinho():  
-        return CarrinhoDAO().Limpar_carrinho()
+    def limpar_carrinho(id_cliente):  
+        return CarrinhoDAO().Limpar_carrinho(id_cliente)
     
     @staticmethod
-    def visualizar_carrinho():
-        return CarrinhoDAO().Visualizar_carrinho()
+    def visualizar_carrinho(id_cliente):
+        return CarrinhoDAO().Visualizar_carrinho(id_cliente)
     
     @staticmethod
-    def comprar_carrinho():
-        return CarrinhoDAO().Comprar_carrinho()
+    def comprar_carrinho(id_cliente):
+        return CarrinhoDAO().Comprar_carrinho(id_cliente)
     #--------- CRUD CARRINHO ----------
 
     #--------- NOVOS MÉTODOS (VENDAS E REAJUSTE) ----------
