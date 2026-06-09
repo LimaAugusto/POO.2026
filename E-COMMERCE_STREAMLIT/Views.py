@@ -11,7 +11,8 @@ class View:
 
     @staticmethod
     def cria_admin():
-        for obj in View.listar_cliente():
+        x = View.listar_cliente()
+        for obj in x:
             if obj.getEmail() == "admin": return
         View.inserir_cliente("admin", "admin", "(84)987654321", "1234")
     
