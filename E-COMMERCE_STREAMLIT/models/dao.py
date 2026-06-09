@@ -16,19 +16,19 @@ class DAO:
         self.salvar() # CHAMA O MÉTODO SALVAR PARA SALVAR A NOVA LISTA COM O NOVO OBJETO NO ARQUIVO
     
     def salvar(self):
-        with open(self._objetos, mode = "w") as arq: # COM O ARQUIVO ABERTO EM MODO DE ESCRITA:
+        with open(self.__arquivo, mode = "w") as arq: # COM O ARQUIVO ABERTO EM MODO DE ESCRITA:
             json.dumps(self._objetos, arq, default = self.__classe.to_json, ident = 4) # ESCREVE NO ARQUIVO E USA O "to_json" PARA SALVAR O DIC COMO STRING
 
     def abrir(self):
         self._objetos = [] # ESVAZIA A LISTA ANTES DE ABRIR
         try: # TENTA:
-            with open(self.__arquivo, mode = "r") as arq: # COM O ARQUIVO ABERTO EM MODO DE LEITURA:
-                list_dic = json.load(arq) # CARREGAR OS DADOS DO ARQUIVO PARA A VARIÁVEL "list_dic"
+            with open(self.__arquivo, mode = "r") as arquivo: # COM O ARQUIVO ABERTO EM MODO DE LEITURA:
+                list_dic = json.load(arquivo) # CARREGAR OS DADOS DO ARQUIVO PARA A VARIÁVEL "list_dic"
                 for dic in list_dic: # DEPOIS USA UM LAÇO PARA PERCORRER CADA DICIONÁRIO/OBJETO, EM FORMATO STRING, NA LISTA 
                     obj = self.__classe.from_json(dic) # USA O MÉTODO "from_json" PARA TRANSFORMAR CADA OBJETO EM UM DADO ESTRUTURADO, UM DICIONÁRIO
-                    self._objetos(obj) # E POR FIM, ADICIONA O OBJETO NA LISTA PROTEGIDA
+                    self._objetos.append(obj) # E POR FIM, ADICIONA O OBJETO NA LISTA PROTEGIDA
         except FileNotFoundError: # EXCEÇÃO PARA TRATAR ERRO CASO O ARQUIVO NÃO EXISTA OU NÃO POSSA SER ACESSADO
-            self._objetos = [] # SE O ERRO ACONTECER, ESVAZIA A LISTA
+            self._objetos = [] # SE O ERRO ACONTECER, ESVAZIA A LIST
 
     def listar(self):
         self.abrir()

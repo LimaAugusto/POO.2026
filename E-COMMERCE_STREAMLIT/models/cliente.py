@@ -67,3 +67,4 @@ class ClienteDAO(DAO):
         objetos = super().listar()
         objetos.sort(key = lambda x : x.getNome())
         return objetos
+ 

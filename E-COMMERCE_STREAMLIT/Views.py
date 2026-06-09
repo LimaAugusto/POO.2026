@@ -11,11 +11,10 @@ class View:
 
     @staticmethod
     def cria_admin():
-        x = View.listar_cliente()
-        for obj in x:
+        for obj in View.listar_cliente():
             if obj.getEmail() == "admin": return
         View.inserir_cliente("admin", "admin", "(84)987654321", "1234")
-    
+  
     @staticmethod
     def usuario_autenticar(email, senha):
         for obj in View.listar_cliente():
@@ -34,7 +33,7 @@ class View:
 
     @staticmethod
     def listar_cliente():
-        return ClienteDAO().listar
+        return ClienteDAO().listar()
     
     @staticmethod
     def atualizar_cliente(id, nome, email, fone, senha):
