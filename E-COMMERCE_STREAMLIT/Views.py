@@ -29,23 +29,23 @@ class View:
     @staticmethod
     def inserir_cliente(nome, email, fone, senha):
         c = Cliente(0, nome, email, fone, senha)
-        ClienteDAO().Inserir(c)
+        ClienteDAO().inserir(c)
 
     @staticmethod
     def listar_cliente():
-        return ClienteDAO().Listar()
+        return ClienteDAO().listar
     
     @staticmethod
     def atualizar_cliente(id, nome, email, fone, senha):
         c = Cliente(id, nome, email, fone, senha)
-        verifica = ClienteDAO().Atualizar(c)
+        verifica = ClienteDAO().atualizar(c)
         if verifica == True:
             return True
         else: return False
     
     @staticmethod
     def excluir_cliente(id):
-        return ClienteDAO().Excluir(id)
+        return ClienteDAO().excluir(id)
     
     #----- CRUD CLIENTE -----
 
@@ -54,20 +54,20 @@ class View:
     @staticmethod
     def inserir_categoria(desc):
         cat = Categoria(0, desc)
-        CategoriaDAO().Inserir(cat)
+        CategoriaDAO().inserir(cat)
     
     @staticmethod
     def listar_categoria():
-        return CategoriaDAO().Listar()
+        return CategoriaDAO().listar()
     
     @staticmethod
     def excluir_categoria(id):  
-        return CategoriaDAO().Excluir(id)
+        return CategoriaDAO().excluir(id)
     
     @staticmethod
     def atualizar_categoria(id, desc):
         cat = Categoria(id, desc)
-        verifica = CategoriaDAO().Atualizar(cat)
+        verifica = CategoriaDAO().atualizar(cat)
         if verifica == True:
             return True
         else: return False
@@ -79,20 +79,20 @@ class View:
     @staticmethod
     def inserir_produto(desc, preco, estoque, id_cat):
         p = Produto(0, desc, preco, estoque, id_cat)
-        ProdutoDAO().Inserir(p)
+        ProdutoDAO().inserir(p)
     
     @staticmethod
     def listar_produto():
-        return ProdutoDAO().Listar()
+        return ProdutoDAO().listar()
     
     @staticmethod
     def excluir_produto(id):  
-        return ProdutoDAO().Excluir(id)
+        return ProdutoDAO().excluir(id)
     
     @staticmethod
     def atualizar_produto(id, desc, preco, estoque, id_cat):
         c = Produto(id, desc, preco, estoque, id_cat)
-        verifica = ProdutoDAO().Atualizar(c)
+        verifica = ProdutoDAO().atualizar(c)
         if verifica == True:
             return True
         else: return False
@@ -103,15 +103,15 @@ class View:
 
     @staticmethod
     def reajustar_preco(percentual):
-        produtos = ProdutoDAO().Listar()
+        produtos = ProdutoDAO().listar()
         for p in produtos:
             novo_preco = p.getPreco() + (p.getPreco() * (percentual / 100))
             p.setPreco(novo_preco)
-            ProdutoDAO().Atualizar(p)
+            ProdutoDAO().atualizar(p)
             
     @staticmethod
     def listar_vendas_cliente(id_cliente):
-        todas_vendas = VendaDAO().Listar()
+        todas_vendas = VendaDAO().listar()
         vendas_do_cliente = []
         for venda in todas_vendas:
             if venda.getId_Cliente() == id_cliente:
