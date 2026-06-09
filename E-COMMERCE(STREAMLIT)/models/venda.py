@@ -12,11 +12,12 @@ def conversor_json(obj):
 
 class Venda:
     def __init__(self, id, data, carrinho, total, id_cliente):
-        self.setId(id)
-        self.setData(data)
-        self.setCarrinho(carrinho)
-        self.setTotal(total)
-        self.setId_Cliente(id_cliente)
+#       ATRIBUTOS DA CLASSE VENDA:
+        self.setId(id)                  # <-- ID DA VENDA
+        self.setData(data)              # <-- DATA EM QUE OCORREU A VENDA
+        self.setCarrinho(carrinho)      # <-- ESTADO DO CARRINHO
+        self.setTotal(total)            # <-- PREÇO TOTAL DA VENDA
+        self.setId_Cliente(id_cliente)  # <-- ID DO CLIENTE
 
     #----- GETTERS -----
 
@@ -73,9 +74,11 @@ class Venda:
     #----- TO_STRING -----
 
 class VendaDAO(DAO):
+#   CHAMA OS ATRIBUTOS DA VENDA E DEFINE O ARQUIVO A SER USADO PARA LER E ESCREVER
     def __init__(self):
         super().__init__(Venda, "vendas.json")
 
+#   CHAMA O MÉTODO LISTAR DA CLASSE SUPER NO DAO E ORGANIZA POR ID DE VENDA
     def listar(self):
         objetos = super().listar()
         objetos.sort(key = lambda x : x.getId())

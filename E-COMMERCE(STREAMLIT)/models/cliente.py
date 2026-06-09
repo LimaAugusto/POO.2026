@@ -3,11 +3,12 @@ import json
 
 class Cliente:
     def __init__(self, id, nome, email, fone, senha):
-        self.setId(id)
-        self.setNome(nome)
-        self.setEmail(email)
-        self.setFone(fone)
-        self.setSenha(senha)
+    #   ATRIBUTOS DA CLASSE CLIENTE:
+        self.setId(id)       # <-- ID DO CLIENTE
+        self.setNome(nome)   # <-- NOME DO CLIENTE
+        self.setEmail(email) # <-- EMAIL DO CLIENTE
+        self.setFone(fone)   # <-- TELEFONE DO CLIENTE
+        self.setSenha(senha) # <-- SENHA DO CLIENTE
     
     # ----- GETTERS -----
 
@@ -57,9 +58,11 @@ class Cliente:
 
 
 class ClienteDAO(DAO):
+#   CHAMA OS ATRIBUTOS DO CLIENTE E DEFINE O ARQUIVO A SER USADO PARA LER E ESCREVER
     def __init__(self):
         super().__init__(Cliente, "clientes.json")
 
+#   CHAMA O MÉTODO LISTAR DA CLASSE SUPER NO DAO E ORGANIZA POR NOME DE CLIENTE
     def listar(self):
         objetos = super().listar()
         objetos.sort(key = lambda x : x.getNome())

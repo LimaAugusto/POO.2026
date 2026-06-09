@@ -3,8 +3,9 @@ import json
 
 class Categoria:
     def __init__(self, id, desc):
-        self.setId(id)
-        self.setDesc(desc)
+#   ATRIBUTOS DA CLASSE CATEGORIA:
+        self.setId(id)      # <-- ID DA CATEGORIA
+        self.setDesc(desc)  # <-- DESCRIÇÃO DA CATEGORIA
 
     #----- GETTERS -----
     
@@ -34,9 +35,11 @@ class Categoria:
     #----- TO_STRING -----
 
 class CategoriaDAO(DAO):
+#   CHAMA OS ATRIBUTOS DA CATEGORIA E DEFINE O ARQUIVO A SER USADO PARA LER E ESCREVER
     def __init__(self):
         super().__init__(Categoria, "categorias.json")
 
+#   CHAMA O MÉTODO LISTAR DA CLASSE SUPER NO DAO E ORGANIZA POR ID DE CATEGORIA
     def listar(self):
         objetos = super().listar()
         objetos.sort(key = lambda x : x.getId())

@@ -3,11 +3,12 @@ import json
 
 class Produto:
     def __init__(self, id, desc, preco, estoque, id_categoria):
-        self.setId(id)
-        self.setDesc(desc)
-        self.setPreco(preco)
-        self.setEstoque(estoque)
-        self.setId_Categoria(id_categoria)
+#       ATRIBUTOS DA CLASSE PRODUTO:
+        self.setId(id)                      # <-- ID DO PRODUTO
+        self.setDesc(desc)                  # <-- ID DA DESCRIÇÃO
+        self.setPreco(preco)                # <-- PREÇO DO PRODUTO
+        self.setEstoque(estoque)            # <-- QUANTIDADE DO PRODUTO NO ESTOQUE
+        self.setId_Categoria(id_categoria)  # <-- ID DA CATEGORIA DAQUELE PRODUTO
 
     #----- GETTERS -----
 
@@ -59,9 +60,11 @@ class Produto:
     #----- TO_STRING -----
 
 class ProdutoDAO(DAO):
+#   CHAMA OS ATRIBUTOS DO PRODUTO E DEFINE O ARQUIVO A SER USADO PARA LER E ESCREVER
     def __init__(self):
         super().__init__(Produto, "produtos.json")
 
+#   CHAMA O MÉTODO LISTAR DA CLASSE SUPER NO DAO E ORGANIZA POR ID DE PRODUTO
     def listar(self):
         objetos = super().listar()
         objetos.sort(key = lambda x : x.getId())
