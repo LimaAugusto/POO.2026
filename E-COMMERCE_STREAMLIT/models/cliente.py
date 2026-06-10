@@ -49,12 +49,28 @@ class Cliente:
         
     # ----- SETTERS -----
 
-    #----- TO_STRING -----
+    # ----- TO_STRING -----
 
     def __str__(self):
         return f"|CLIENTE_ID: {self.id} | NOME: {self.nome} | EMAIL: {self.email} | FONE: {self.fone} | SENHA: {self.senha}|"
 
-    #----- TO_STRING -----
+    # ----- TO_STRING -----
+
+    # ----- TO_JSON -----
+
+    def to_json(self):
+        return { "id" : self.id, "nome" : self.nome, "email" : self.email, "fone" : self.fone, "senha" : self.senha }
+    
+    # ----- TO_JSON -----
+
+    # ----- FROM_JSON -----
+
+    @staticmethod
+    def from_json(dic):
+        return Cliente(dic["id"], dic["nome"], dic["email"], dic["fone"], dic["senha"])
+    
+    # ----- FROM_JSON -----
+
 
 
 class ClienteDAO(DAO):
@@ -63,7 +79,7 @@ class ClienteDAO(DAO):
         super().__init__(Cliente, "clientes.json")
 
 #   CHAMA O MÉTODO LISTAR DA CLASSE SUPER NO DAO E ORGANIZA POR NOME DE CLIENTE
-    def listar(self):
+    def listar_a(self):
         objetos = super().listar()
         objetos.sort(key = lambda x : x.getNome())
         return objetos
