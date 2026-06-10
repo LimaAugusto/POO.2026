@@ -52,7 +52,7 @@ class Cliente:
     # ----- TO_STRING -----
 
     def __str__(self):
-        return f"|CLIENTE_ID: {self.id} | NOME: {self.nome} | EMAIL: {self.email} | FONE: {self.fone} | SENHA: {self.senha}|"
+        return f"CLIENTE-ID: {self.id} - NOME: {self.nome} - EMAIL: {self.email} - FONE: {self.fone} - SENHA: {self.senha}"
 
     # ----- TO_STRING -----
 

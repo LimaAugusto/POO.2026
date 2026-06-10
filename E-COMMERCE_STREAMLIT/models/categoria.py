@@ -30,9 +30,26 @@ class Categoria:
     #----- TO_STRING -----
 
     def __str__(self):
-        return f"|CATEGORIA_ID: {self.id} | DESCRIÇÃO: {self.desc}|"
+        return f"CATEGORIA_ID: {self.id} - DESCRIÇÃO: {self.desc}"
 
     #----- TO_STRING -----
+
+    
+    # ----- TO_JSON -----
+
+    def to_json(self):
+        return { "id" : self.id, "desc" : self.desc }
+    
+    # ----- TO_JSON -----
+
+    # ----- FROM_JSON -----
+
+    @staticmethod
+    def from_json(dic):
+        return Categoria(dic["id"], dic["desc"])
+    
+    # ----- FROM_JSON -----
+
 
 class CategoriaDAO(DAO):
 #   CHAMA OS ATRIBUTOS DA CATEGORIA E DEFINE O ARQUIVO A SER USADO PARA LER E ESCREVER

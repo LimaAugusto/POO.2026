@@ -55,9 +55,25 @@ class Produto:
     #----- TO_STRING -----
 
     def __str__(self):
-        return f"|PRODUTO_ID: {self.id} | DESCRIÇÃO: {self.desc} | PREÇO: R${self.preco:.2f} | ESTOQUE: {self.estoque} | ID_CATEGORIA: {self.id_categoria}|"
+        return f"PRODUTO_ID: {self.id} - DESCRIÇÃO: {self.desc} - PREÇO: R${self.preco:.2f} - ESTOQUE: {self.estoque} - ID_CATEGORIA: {self.id_categoria}"
 
     #----- TO_STRING -----
+    
+    # ----- TO_JSON -----
+
+    def to_json(self):
+        return { "id" : self.id, "desc" : self.desc, "preco" : self.preco, "estoque" : self.estoque, "id_categoria" : self.id_categoria }
+    
+    # ----- TO_JSON -----
+
+    # ----- FROM_JSON -----
+
+    @staticmethod
+    def from_json(dic):
+        return Produto(dic["id"], dic["desc"], dic["preco"], dic["estoque"], dic["id_categoria"])
+    
+    # ----- FROM_JSON -----
+
 
 class ProdutoDAO(DAO):
 #   CHAMA OS ATRIBUTOS DO PRODUTO E DEFINE O ARQUIVO A SER USADO PARA LER E ESCREVER
