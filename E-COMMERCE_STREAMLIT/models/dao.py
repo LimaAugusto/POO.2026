@@ -10,7 +10,7 @@ class DAO:
     def inserir(self, obj):
         self.abrir() # CHAMA O MÉTODO ABRIR PARA ACESSAR O ARQUIVO DA LISTA
         if len(self._objetos) == 0: id = 0 # SE O TAMANHO DA LISTA = 0, ID = 0 
-        else: id = (max(self._objeto, key = lambda x : x.getId())).getId + 1 # SE NÃO, PEGA O OBJETO COM MAIOR ID E SOMA MAIS 1
+        else: id = (max(self._objetos, key = lambda x : x.getId())).getId() + 1 # SE NÃO, PEGA O OBJETO COM MAIOR ID E SOMA MAIS 1
         obj.setId(id) # COM O (ID + 1), SETA ESSE COMO O ID DO OBJETO
         self._objetos.append(obj) # ADICIONA O OBJETO NA LISTA
         self.salvar() # CHAMA O MÉTODO SALVAR PARA SALVAR A NOVA LISTA COM O NOVO OBJETO NO ARQUIVO

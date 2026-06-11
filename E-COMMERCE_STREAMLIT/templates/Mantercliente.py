@@ -45,14 +45,14 @@ class ManterClienteUI:
             fone = st.text_input("INFORME SEU NOVO TELEFONE", op.getFone())
             senha = st.text_input("INFORME SUA NOVA SENHA", op.getSenha(), type="password")
             if st.button("ATUALIZAR"):
-                    id = op.getId()
-                    try: 
-                        View.atualizar_cliente(id, nome, email, fone, senha)
-                        st.success("CLIENTE ATUALIZADO!")
-                    except Exception as erro:
-                        st.error(erro)
-                    time.sleep(2)
-                    st.rerun()
+                id = op.getId()
+                try: 
+                    View.atualizar_cliente(id, nome, email, fone, senha)
+                    st.success("CLIENTE ATUALIZADO!")
+                except Exception as erro:
+                    st.error(erro)
+                time.sleep(2)
+                st.rerun()
 
     def Excluir():
         clientes = View.listar_cliente()

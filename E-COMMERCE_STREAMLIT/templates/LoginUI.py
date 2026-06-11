@@ -5,8 +5,8 @@ from Views import View
 class LoginUI:
     def main():
         st.header("ENTRAR NO SISTEMA")
-        email = st.text_input("e-mail")
-        senha = st.text_input("senha", type="password")
+        email = st.text_input("E-MAIL")
+        senha = st.text_input("SENHA", type="password")
         if st.button("ENTRAR"):
             c = View.usuario_autenticar(email, senha)
             if c == None: st.write("E-MAIL OU SENHA INVÁLIDO(S)!")

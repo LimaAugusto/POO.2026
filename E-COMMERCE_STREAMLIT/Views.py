@@ -45,7 +45,8 @@ class View:
     
     @staticmethod
     def excluir_cliente(id):
-        return ClienteDAO().excluir(id)
+        c = Cliente(id, "nome", "email", "fone", "senha")
+        return ClienteDAO().excluir(c)
     
     #----- CRUD CLIENTE -----
 
@@ -61,8 +62,9 @@ class View:
         return CategoriaDAO().listar()
     
     @staticmethod
-    def excluir_categoria(id):  
-        return CategoriaDAO().excluir(id)
+    def excluir_categoria(id):
+        c = Categoria(id, "desc")
+        return CategoriaDAO().excluir(c)
     
     @staticmethod
     def atualizar_categoria(id, desc):
@@ -86,8 +88,9 @@ class View:
         return ProdutoDAO().listar()
     
     @staticmethod
-    def excluir_produto(id):  
-        return ProdutoDAO().excluir(id)
+    def excluir_produto(id):
+        p = Produto(id, "desc", 00.0, 0, 0)
+        return ProdutoDAO().excluir(p)
     
     @staticmethod
     def atualizar_produto(id, desc, preco, estoque, id_cat):

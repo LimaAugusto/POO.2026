@@ -79,7 +79,7 @@ class ClienteDAO(DAO):
         super().__init__(Cliente, "clientes.json")
 
 #   CHAMA O MÉTODO LISTAR DA CLASSE SUPER NO DAO E ORGANIZA POR NOME DE CLIENTE
-    def listar_a(self):
+    def listar(self):
         objetos = super().listar()
         objetos.sort(key = lambda x : x.getNome())
         return objetos

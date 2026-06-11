@@ -25,7 +25,7 @@ class ManterCategoriaUI:
         descricao = st.text_input("INFORME A DESCRIÇÃO")
         if st.button("INSERIR"):
             try:
-                View.listar_categoria(descricao)
+                View.inserir_categoria(descricao)
                 st.success("CATEGORIA INSERIDA")
             except Exception as erro:
                 st.error(erro)

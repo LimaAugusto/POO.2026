@@ -23,12 +23,12 @@ class ManterProdutoUI:
 
     def Inserir():
         descricao = st.text_input("INFORME A DESCRIÇÃO")
-        preco = st.text_input("INFORME O PREÇO")
-        estoque = st.text_input("INFORME A QUANTIDADE NO ESTOQUE")
-        id_categoria = st.text_input("INFORME O ID DA CATEGORIA")
+        preco = float(st.text_input("INFORME O PREÇO"))
+        estoque = int(st.text_input("INFORME A QUANTIDADE NO ESTOQUE"))
+        id_categoria = int(st.text_input("INFORME O ID DA CATEGORIA"))
         if st.button("INSERIR"):
             try:
-                View.listar_produto(descricao, preco, estoque, id_categoria)
+                View.inserir_produto(descricao, preco, estoque, id_categoria)
                 st.success("PRODUTO INSERIDO")
             except Exception as erro:
                 st.error(erro)
@@ -41,9 +41,9 @@ class ManterProdutoUI:
         else:
             op = st.selectbox("ATUALIZAÇÃO DE PRODUTOS", produtos)
             descricao = st.text_input("INFORME SUA NOVA DESCRIÇÃO", op.getDesc())
-            preco = st.text_input("INFORME SEU NOVO PREÇO", op.getPreco())
-            estoque = st.text_input("INFORME A NOVA QUANTIDADE NO ESTOQUE", op.getEstoque())
-            id_categoria = st.text_input("INFORME O NOVO OU MESMO ID DA CATEGORIA", op.getId_Categoria())
+            preco = float(st.text_input("INFORME SEU NOVO PREÇO", op.getPreco()))
+            estoque = int(st.text_input("INFORME A NOVA QUANTIDADE NO ESTOQUE", op.getEstoque()))
+            id_categoria = int(st.text_input("INFORME O NOVO OU MESMO ID DA CATEGORIA", op.getId_Categoria()))
             if st.button("ATUALIZAR"):
                     id = op.getId()
                     try: 
