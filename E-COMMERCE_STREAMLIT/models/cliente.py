@@ -42,6 +42,7 @@ class Cliente:
         self.email = email
 
     def setFone(self, fone):
+        if fone < 0: raise ValueError("TELEFONE INVÁLIDO!")
         self.fone = fone
 
     def setSenha(self, senha):

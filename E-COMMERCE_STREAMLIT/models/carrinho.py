@@ -13,7 +13,7 @@ class Carrinho:
         return self.id
     
     def getDescricao(self):
-        return self.descricao
+        return self.desc
     
     def getQuantidade(self):
         return self.qtd
@@ -52,7 +52,7 @@ class Carrinho:
     #----- TO_STRING -----
 
     def __str__(self):
-        return f"|CARRINHO_ID: {self.id} | DESCRIÇÃO: {self.desc} | QUANTIDADE: {self.qtd} | ID_PRODUTO: {self.id_produto} | ID_CLIENTE: {self.id_cliente}|"
+        return f"CARRINHO_ID: {self.id}  DESCRIÇÃO: {self.desc}  QUANTIDADE: {self.qtd}  ID_PRODUTO: {self.id_produto}  ID_CLIENTE: {self.id_cliente}"
 
     #----- TO_STRING -----
 
@@ -69,7 +69,7 @@ class CarrinhoDAO:
         self.carrinho = []
         self.historico = []
         try:
-            with open(r"POO2026\pythonn\E-COMMERCE\DADOS-JSON\carrinho.json", mode = "r") as arq:
+            with open(r"carrinho.json", mode = "r") as arq:
                 dados_json = json.load(arq)
                 if "carrinho" in dados_json:
                     for obj in dados_json["carrinho"]:

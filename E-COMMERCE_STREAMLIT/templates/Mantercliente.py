@@ -24,7 +24,7 @@ class ManterClienteUI:
     def Inserir():
         nome = st.text_input("DIGITE SEU NOME")
         email = st.text_input("DIGITE SEU EMAIL")
-        fone = st.text_input("DIGITE SEU TELEFONE")
+        fone = st.number_input("DIGITE SEU TELEFONE")
         senha = st.text_input("DIGITE UMA SENHA", type = "password")
         if st.button("INSERIR"):
             try:

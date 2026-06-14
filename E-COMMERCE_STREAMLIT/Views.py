@@ -13,7 +13,7 @@ class View:
     def cria_admin():
         for obj in View.listar_cliente():
             if obj.getEmail() == "admin": return
-        View.inserir_cliente("admin", "admin", "(84)987654321", "1234")
+        View.inserir_cliente("admin", "admin", 84987654321, "1234")
   
     @staticmethod
     def usuario_autenticar(email, senha):
@@ -29,6 +29,8 @@ class View:
     @staticmethod
     def inserir_cliente(nome, email, fone, senha):
         c = Cliente(0, nome, email, fone, senha)
+        if nome == "": raise ValueError("NOME INVÁLIDO")
+        if email == "": raise ValueError("E-MAIL INVÁLIDO")
         ClienteDAO().inserir(c)
         return { "id" : c.getId(), "nome" : c.getNome() }
 
@@ -38,6 +40,8 @@ class View:
     
     @staticmethod
     def atualizar_cliente(id, nome, email, fone, senha):
+        if nome == "": raise ValueError("NOME INVÁLIDO")
+        if email == "": raise ValueError("E-MAIL INVÁLIDO")
         c = Cliente(id, nome, email, fone, senha)
         verifica = ClienteDAO().atualizar(c)
         if verifica == True:
@@ -55,6 +59,7 @@ class View:
     
     @staticmethod
     def inserir_categoria(desc):
+        if desc == "": raise ValueError("DESCRIÇÃO INVÁLIDA")
         cat = Categoria(0, desc)
         CategoriaDAO().inserir(cat)
     
@@ -81,6 +86,7 @@ class View:
 
     @staticmethod
     def inserir_produto(desc, preco, estoque, id_cat):
+        if desc == "": raise ValueError("DESCRIÇÃO INVÁLIDA")
         p = Produto(0, desc, preco, estoque, id_cat)
         ProdutoDAO().inserir(p)
     
@@ -154,11 +160,10 @@ class View:
             nova_venda = Venda(
                 id = id_compra, 
                 data = datetime.now(), 
-                carrinho = False, 
                 total = total, 
                 id_cliente = id_cliente
             )
-            VendaDAO().inserir(nova_venda)
+            VendaDAO().inserir_com_id(nova_venda)
             return True
             
         return False

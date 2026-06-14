@@ -3,14 +3,14 @@
         "id": 0,
         "nome": "admin",
         "email": "admin",
-        "fone": "(84)987654321",
+        "fone": 84987654321,
         "senha": "1234"
     },
     {
         "id": 1,
-        "nome": "AUGUSTO",
-        "email": "papudo@gmail.com",
-        "fone": "123456",
-        "senha": "0123"
+        "nome": "teste",
+        "email": "teste",
+        "fone": 123456.0,
+        "senha": "123"
     }
 ]

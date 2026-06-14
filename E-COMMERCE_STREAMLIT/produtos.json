@@ -5,5 +5,12 @@
         "preco": 17000.99,
         "estoque": 6,
         "id_categoria": 0
+    },
+    {
+        "id": 1,
+        "desc": "MESA",
+        "preco": 500.0,
+        "estoque": 10,
+        "id_categoria": 1
     }
 ]

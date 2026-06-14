@@ -15,6 +15,13 @@ class DAO:
         self._objetos.append(obj) # ADICIONA O OBJETO NA LISTA
         self.salvar() # CHAMA O MÉTODO SALVAR PARA SALVAR A NOVA LISTA COM O NOVO OBJETO NO ARQUIVO
     
+    def inserir_com_id(self, obj):
+        # IGUAL AO "inserir", MAS PRESERVA O ID JÁ DEFINIDO NO OBJETO (NÃO GERA UM NOVO)
+        # ÚTIL QUANDO O ID PRECISA SER SINCRONIZADO COM OUTRA FONTE (EX.: ID_COMPRA DO CARRINHO)
+        self.abrir()
+        self._objetos.append(obj)
+        self.salvar()
+
     def salvar(self):
         with open(self.__arquivo, mode = "w") as arq: # COM O ARQUIVO ABERTO EM MODO DE ESCRITA:
             json.dump(self._objetos, arq, default = self.__classe.to_json, indent = 4) # ESCREVE NO ARQUIVO E USA O "to_json" PARA SALVAR O DIC COMO STRING

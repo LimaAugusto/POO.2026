@@ -2,5 +2,9 @@
     {
         "id": 0,
         "desc": "Tecnologia"
+    },
+    {
+        "id": 1,
+        "desc": "MOVEIS"
     }
 ]

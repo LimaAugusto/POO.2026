@@ -20,7 +20,7 @@ class LoginUI:
         st.header("CADASTRO")
         nome = st.text_input("NOME")
         email = st.text_input("E-MAIL")
-        fone = st.text_input("TELEFONE")
+        fone = st.number_input("TELEFONE")
         senha = st.text_input("SENHA")
         if st.button("CRIAR"):
             try:
