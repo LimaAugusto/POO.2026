@@ -1,1 +1,9 @@
-[]
+[
+    {
+        "id": 0,
+        "desc": "CELULAR",
+        "preco": 17000.99,
+        "estoque": 6,
+        "id_categoria": 0
+    }
+]

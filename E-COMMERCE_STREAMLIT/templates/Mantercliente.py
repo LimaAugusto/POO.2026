@@ -29,7 +29,7 @@ class ManterClienteUI:
         if st.button("INSERIR"):
             try:
                 View.inserir_cliente(nome, email, fone, senha)
-                st.success("CLIENTE INSRIDO COM SUCESSO!")
+                st.success("CLIENTE INSERIDO COM SUCESSO!")
             except Exception as erro:
                 st.error(erro)
             time.sleep(2)

@@ -1,6 +1,7 @@
 from templates.Mantercliente import ManterClienteUI
 from templates.Mantercategoria import ManterCategoriaUI
 from templates.Manterproduto import ManterProdutoUI
+from templates.Mantercarrinho import ManterCarrinhoUI
 from templates.LoginUI import LoginUI
 import streamlit as st
 from Views import View
@@ -26,16 +27,8 @@ class IndexUI:
 
     def menu_cliente():
         op = st.sidebar.selectbox("MENU", [
-            "LISTAR PRODUTOS",
-            "INSERIR PRODUTO",
-            "VISUALIZAR CARRINHO",
-            "COMPRAR CARRINHO",
-            "LISTAR MINHAS COMPRAS"])
-        if op == "LISTAR PRODUTOS": View.listar_produto_carrinho()
-        if op == "INSERIR PRODUTO": View.inserir_produto_carrinho()
-        if op == "VISUALIZAR CARRINHO": View.visualizar_carrinho()
-        if op == "COMPRAR CARRINHO": View.comprar_carrinho()
-        if op == "LISTAR MINHAS COMPRAS": View.listar_vendas_cliente()
+            "CARRINHO",])
+        if op == "CARRINHO": ManterCarrinhoUI()
 
     def sidebar():
         if "cliente_id" not in st.session_state: IndexUI.menu_visitante()

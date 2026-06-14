@@ -23,9 +23,9 @@ class ManterProdutoUI:
 
     def Inserir():
         descricao = st.text_input("INFORME A DESCRIÇÃO")
-        preco = float(st.text_input("INFORME O PREÇO"))
-        estoque = int(st.text_input("INFORME A QUANTIDADE NO ESTOQUE"))
-        id_categoria = int(st.text_input("INFORME O ID DA CATEGORIA"))
+        preco = float(st.number_input("INFORME O PREÇO"))
+        estoque = int(st.number_input("INFORME A QUANTIDADE NO ESTOQUE"))
+        id_categoria = int(st.number_input("INFORME O ID DA CATEGORIA"))
         if st.button("INSERIR"):
             try:
                 View.inserir_produto(descricao, preco, estoque, id_categoria)
