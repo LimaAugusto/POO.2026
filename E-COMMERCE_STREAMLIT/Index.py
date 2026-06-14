@@ -28,7 +28,7 @@ class IndexUI:
     def menu_cliente():
         op = st.sidebar.selectbox("MENU", [
             "CARRINHO",])
-        if op == "CARRINHO": ManterCarrinhoUI()
+        if op == "CARRINHO": ManterCarrinhoUI.main()
 
     def sidebar():
         if "cliente_id" not in st.session_state: IndexUI.menu_visitante()

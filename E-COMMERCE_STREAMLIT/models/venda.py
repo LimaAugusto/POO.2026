@@ -22,7 +22,7 @@ class Venda:
     #----- GETTERS -----
 
     def getId(self):
-        return self.id_cliente
+        return self.id
     
     def getData(self):
         return self.data

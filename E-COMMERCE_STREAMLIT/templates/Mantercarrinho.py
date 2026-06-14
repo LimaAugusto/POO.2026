@@ -7,12 +7,12 @@ from datetime import datetime
 class ManterCarrinhoUI:
     def main():
         st.header("LOJA")
-        tab1 = st.tabs("LISTAR PRODUTOS")
+        tab1, tab2 = st.tabs("LISTAR PRODUTOS", "INSERIR PRODUTO")
         with tab1: ManterCarrinhoUI.Listar_produtos()
-        # with tab2: pass
-        # with tab3: pass
-        # with tab4: pass
-        # with tab5: pass
+        with tab2: ManterCarrinhoUI.Inserir_produtos()
+        # with tab3: ManterCarrinhoUI.Visualizar_carrinho()
+        # with tab4: ManterCarrinhoUI.Comprar_carrinho()
+        # with tab5: ManterCarrinhoUI.Listar_compras()
 
     def Listar_produtos():
         produtos = View.listar_produto()
@@ -23,23 +23,23 @@ class ManterCarrinhoUI:
             df = pd.DataFrame(list_dic)
             st.dataframe(df, hide_index = True, column_order = ["id", "desc", "preco", "estoque", "id_categoria"])
 
-    # def Inserir_produtos():
-    #     c = View.listar_cliente(st.session_state["cliente_id"])
-    #     produtos = View.listar_produto()
-    #     if len(produtos) == 0: st.write("NENHUM PRODUTO CADASTRADO!")
-    #     else:
-    #         op = st.selectbox("INSERÇÃO DE PRODUTOS", produtos)
-    #         quantidade = st.text_input("QUANTIDADE")
-    #         if st.button("INSERIR"):
-    #             id_produto = op.getId()
-    #             id_cliente = c.getId()
-    #             try: 
-    #                 View.inserir_produto_carrinho(quantidade, id_produto, id_cliente)
-    #                 st.success("PRODUTO ADICIONADO!")
-    #             except Exception as erro:
-    #                 st.error(erro)
-    #             time.sleep(2)
-    #             st.rerun()
+    def Inserir_produtos():
+        c = View.listar_cliente(st.session_state["cliente_id"])
+        produtos = View.listar_produto()
+        if len(produtos) == 0: st.write("NENHUM PRODUTO CADASTRADO!")
+        else:
+            op = st.selectbox("INSERÇÃO DE PRODUTOS", produtos)
+            quantidade = st.text_input("QUANTIDADE")
+            if st.button("INSERIR"):
+                id_produto = op.getId()
+                id_cliente = c.getId()
+                try: 
+                    View.inserir_produto_carrinho(quantidade, id_produto, id_cliente)
+                    st.success("PRODUTO ADICIONADO!")
+                except Exception as erro:
+                    st.error(erro)
+                time.sleep(2)
+                st.rerun()
 
 
 

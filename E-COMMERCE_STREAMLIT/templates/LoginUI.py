@@ -23,9 +23,12 @@ class LoginUI:
         fone = st.text_input("TELEFONE")
         senha = st.text_input("SENHA")
         if st.button("CRIAR"):
-            c = View.inserir_cliente(nome, email, fone, senha)
-            st.session_state["cliente_id"] = c["id"]
-            st.session_state["cliente_nome"] = c["nome"]
-            time.sleep(2)
-            st.rerun()
-    
+            try:
+                c = View.inserir_cliente(nome, email, fone, senha)
+                st.session_state["cliente_id"] = c["id"]
+                st.session_state["cliente_nome"] = c["nome"]
+                st.success("CLIENTE INSERIDO!")
+            except Exception as erro:
+                st.error(erro) 
+                time.sleep(2)
+                st.rerun()

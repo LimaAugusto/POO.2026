@@ -30,6 +30,7 @@ class View:
     def inserir_cliente(nome, email, fone, senha):
         c = Cliente(0, nome, email, fone, senha)
         ClienteDAO().inserir(c)
+        return { "id" : c.getId(), "nome" : c.getNome() }
 
     @staticmethod
     def listar_cliente():
