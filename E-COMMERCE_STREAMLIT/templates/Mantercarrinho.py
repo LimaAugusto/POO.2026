@@ -61,8 +61,8 @@ class ManterCarrinhoUI:
         list_dic = []
         total = 0
         for item in itens:
-            produto = next((p for p in View.listar_produto() if p.getId() == item.getId_Produto()), None)
-            preco = produto.getPreco() if produto else 0
+
+            preco = item.getPreco()
             subtotal = preco * item.getQuantidade()
             total += subtotal
             list_dic.append({

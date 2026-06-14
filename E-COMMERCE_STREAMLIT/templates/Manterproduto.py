@@ -41,9 +41,9 @@ class ManterProdutoUI:
         else:
             op = st.selectbox("ATUALIZAÇÃO DE PRODUTOS", produtos)
             descricao = st.text_input("INFORME SUA NOVA DESCRIÇÃO", op.getDesc())
-            preco = float(st.text_input("INFORME SEU NOVO PREÇO", op.getPreco()))
-            estoque = int(st.text_input("INFORME A NOVA QUANTIDADE NO ESTOQUE", op.getEstoque()))
-            id_categoria = int(st.text_input("INFORME O NOVO OU MESMO ID DA CATEGORIA", op.getId_Categoria()))
+            preco = float(st.number_input("INFORME SEU NOVO PREÇO", op.getPreco()))
+            estoque = int(st.number_input("INFORME A NOVA QUANTIDADE NO ESTOQUE", op.getEstoque()))
+            id_categoria = int(st.number_input("INFORME O NOVO OU MESMO ID DA CATEGORIA", op.getId_Categoria()))
             if st.button("ATUALIZAR"):
                     id = op.getId()
                     try: 

@@ -114,9 +114,7 @@ class View:
     @staticmethod
     def inserir_produto_carrinho(quantidade, id_produto, id_cliente):
         produto = ProdutoDAO().listar_id(id_produto)
-        if produto is None: 
-            return False
-        item = Carrinho(id = 0, desc = produto.getDesc(), qtd = quantidade, id_produto = id_produto, id_cliente = id_cliente)
+        item = Carrinho(id = 0, desc = produto.getDesc(), qtd = quantidade, preco = produto.getPreco(), id_produto = id_produto, id_cliente = id_cliente)
         CarrinhoDAO().Inserir_produto(item)
         return True
 
@@ -143,20 +141,33 @@ class View:
         if not itens_carrinho:
             return False # Retorna falso se o carrinho estiver vazio
 
-        # 2. Calculamos o valor total da compra
+        # 2. Verificamos se há estoque suficiente para TODOS os itens antes de mover qualquer coisa
+        produtos_cache = {}
+        for item in itens_carrinho:
+            produto = ProdutoDAO().listar_id(item.getId_Produto())
+            if produto is None:
+                raise ValueError(f"PRODUTO '{item.getDescricao()}' NÃO EXISTE MAIS!")
+            if item.getQuantidade() > produto.getEstoque():
+                raise ValueError(f"ESTOQUE INSUFICIENTE PARA '{produto.getDesc()}'!")
+            produtos_cache[item.getId_Produto()] = produto
+ 
+        # 3. Calculamos o valor total da compra usando o preço CONGELADO no item do carrinho
         total = 0
         for item in itens_carrinho:
-            # Puxamos o produto para descobrir o preço atual dele
-            produto = ProdutoDAO().listar_id(item.getId_Produto())
-            if produto:
-                total += produto.getPreco() * item.getQuantidade()
-
-        # 3. Movemos os itens para o histórico.json (seu código original já faz isso muito bem)
+            total += item.getPreco() * item.getQuantidade()
+ 
+        # 4. Movemos os itens para o histórico (seu código original já faz isso muito bem)
         id_compra = CarrinhoDAO().Comprar_carrinho(id_cliente)
-
-        # 4. Se os itens foram para o histórico com sucesso, geramos o "recibo" (a Venda)
+ 
+        # 5. Se os itens foram para o histórico com sucesso, geramos o "recibo" (a Venda)
         if id_compra:
-            # Cria a nova Venda. O atributo 'carrinho' recebe 'False' indicando que o carrinho foi fechado.
+            # 5.1 Abate o estoque de cada produto comprado
+            for item in itens_carrinho:
+                produto = produtos_cache[item.getId_Produto()]
+                produto.setEstoque(produto.getEstoque() - item.getQuantidade())
+                ProdutoDAO().atualizar(produto)
+ 
+            # 5.2 Cria a nova Venda (registro/recibo da compra finalizada).
             nova_venda = Venda(
                 id = id_compra, 
                 data = datetime.now(), 

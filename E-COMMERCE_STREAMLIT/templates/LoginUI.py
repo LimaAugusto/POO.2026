@@ -8,14 +8,17 @@ class LoginUI:
         email = st.text_input("E-MAIL")
         senha = st.text_input("SENHA", type="password")
         if st.button("ENTRAR"):
-            c = View.usuario_autenticar(email, senha)
-            if c == None: st.write("E-MAIL OU SENHA INVÁLIDO(S)!")
-            else:
-                st.session_state["cliente_id"] = c["id"]
-                st.session_state["cliente_nome"] = c["nome"]
-            time.sleep(2)    
-            st.rerun()
-    
+            try:
+                c = View.usuario_autenticar(email, senha)
+                if c == None: st.write("E-MAIL OU SENHA INVÁLIDO(S)!")
+                else:
+                    st.session_state["cliente_id"] = c["id"]
+                    st.session_state["cliente_nome"] = c["nome"]
+            except Exception as erro:
+                st.error(erro)
+                time.sleep(2)    
+                st.rerun()
+        
     def abrir_conta():
         st.header("CADASTRO")
         nome = st.text_input("NOME")

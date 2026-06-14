@@ -1,9 +1,10 @@
 import json
 class Carrinho:
-    def __init__(self, id, desc, qtd, id_produto, id_cliente):
+    def __init__(self, id, desc, qtd, preco, id_produto, id_cliente):
         self.setId(id)
         self.setDescricao(desc)
         self.setQuantidade(qtd)
+        self.setPreco(preco)
         self.setId_Produto(id_produto)
         self.setId_Cliente(id_cliente)
 
@@ -17,6 +18,9 @@ class Carrinho:
     
     def getQuantidade(self):
         return self.qtd
+    
+    def getPreco(self):
+        return self.preco
     
     def getId_Produto(self):
         return self.id_produto
@@ -36,8 +40,12 @@ class Carrinho:
         self.desc = desc
 
     def setQuantidade(self, qtd):
-        if qtd < 0: raise ValueError("VALOR INVÁLIDO!")
+        if qtd < 1: raise ValueError("VALOR INVÁLIDO!")
         self.qtd = qtd
+
+    def setPreco(self, preco):
+        if preco < 1: raise ValueError("VALOR INVÁLIDO!")
+        self.preco = preco
 
     def setId_Produto(self, id_produto):
         if id_produto < 0: raise ValueError("VALOR INVÁLIDO!")
@@ -52,7 +60,7 @@ class Carrinho:
     #----- TO_STRING -----
 
     def __str__(self):
-        return f"CARRINHO_ID: {self.id}  DESCRIÇÃO: {self.desc}  QUANTIDADE: {self.qtd}  ID_PRODUTO: {self.id_produto}  ID_CLIENTE: {self.id_cliente}"
+        return f"CARRINHO_ID: {self.id}  DESCRIÇÃO: {self.desc}  QUANTIDADE: {self.qtd}  PREÇO: R${self.preco:.2f}  ID_PRODUTO: {self.id_produto}  ID_CLIENTE: {self.id_cliente}"
 
     #----- TO_STRING -----
 
@@ -73,12 +81,12 @@ class CarrinhoDAO:
                 dados_json = json.load(arq)
                 if "carrinho" in dados_json:
                     for obj in dados_json["carrinho"]:
-                        c = Carrinho(obj["id"], obj["desc"], obj["qtd"], obj["id_produto"], obj["id_cliente"])
+                        c = Carrinho(obj["id"], obj["desc"], obj["qtd"], obj["preco"], obj["id_produto"], obj["id_cliente"])
                         self.carrinho.append(c)
                         
                 if "historico" in dados_json:
                     for obj in dados_json["historico"]:
-                        c = Carrinho(obj["id"], obj["desc"], obj["qtd"], obj["id_produto"], obj["id_cliente"])
+                        c = Carrinho(obj["id"], obj["desc"], obj["qtd"], obj["preco"], obj["id_produto"], obj["id_cliente"])
                         self.historico.append(c)
         except FileNotFoundError:
             self.carrinho = []
