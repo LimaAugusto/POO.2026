@@ -10,8 +10,8 @@ class IndexUI:
         op = st.sidebar.selectbox("MENU", [
             "ENTRAR NO SISTEMA",
             "ABRIR CONTA"])
-        if op == "ENTRAR NO SISTEMA": LoginUI.main()
-        if op == "ABRIR CONTA": pass
+        if op == "ENTRAR NO SISTEMA": LoginUI.sistema_entrar()
+        if op == "ABRIR CONTA": LoginUI.abrir_conta()
 
     def menu_admin():
         op = st.sidebar.selectbox("MENU", [
@@ -23,6 +23,19 @@ class IndexUI:
         if op == "CADASTRO DE PRODUTOS": ManterProdutoUI.main()
         if op == "CADASTRO DE CATEGORIAS": ManterCategoriaUI.main()
         if op == "REAJUSTAR PRODUTOS": pass
+
+    def menu_cliente():
+        op = st.sidebar.selectbox("MENU", [
+            "LISTAR PRODUTOS",
+            "INSERIR PRODUTO",
+            "VISUALIZAR CARRINHO",
+            "COMPRAR CARRINHO",
+            "LISTAR MINHAS COMPRAS"])
+        if op == "LISTAR PRODUTOS": View.listar_produto_carrinho()
+        if op == "INSERIR PRODUTO": View.inserir_produto_carrinho()
+        if op == "VISUALIZAR CARRINHO": View.visualizar_carrinho()
+        if op == "COMPRAR CARRINHO": View.comprar_carrinho()
+        if op == "LISTAR MINHAS COMPRAS": View.listar_vendas_cliente()
 
     def sidebar():
         if "cliente_id" not in st.session_state: IndexUI.menu_visitante()
