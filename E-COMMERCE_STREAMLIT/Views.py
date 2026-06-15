@@ -199,4 +199,12 @@ class View:
                 vendas_do_cliente.append(venda)
         return vendas_do_cliente
     
+    @staticmethod
+    def listar_vendas():
+        return VendaDAO().listar()
+    
+    @staticmethod
+    def listar_historico_completo():
+        return CarrinhoDAO().Retornar_historico()
+    
     #----- NOVOS MÉTODOS (VENDAS E REAJUSTE) -----

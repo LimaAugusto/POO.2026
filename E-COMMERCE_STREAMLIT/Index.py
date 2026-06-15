@@ -2,6 +2,7 @@ from templates.Mantercliente import ManterClienteUI
 from templates.Mantercategoria import ManterCategoriaUI
 from templates.Manterproduto import ManterProdutoUI
 from templates.Mantercarrinho import ManterCarrinhoUI
+from templates.Mantervenda import ManterVendaUI
 from templates.LoginUI import LoginUI
 import streamlit as st
 from Views import View
@@ -19,11 +20,13 @@ class IndexUI:
             "CADASTRO DE CLIENTES",
             "CADASTRO DE PRODUTOS",
             "CADASTRO DE CATEGORIAS",
-            "REAJUSTAR PRODUTOS"])
+            "REAJUSTAR PRODUTOS",
+            "LISTA DE VENDAS"])
         if op == "CADASTRO DE CLIENTES": ManterClienteUI.main()
         if op == "CADASTRO DE PRODUTOS": ManterProdutoUI.main()
         if op == "CADASTRO DE CATEGORIAS": ManterCategoriaUI.main()
         if op == "REAJUSTAR PRODUTOS": pass
+        if op == "LISTA DE VENDAS": ManterVendaUI.main()
 
     def menu_cliente():
         op = st.sidebar.selectbox("MENU", [
