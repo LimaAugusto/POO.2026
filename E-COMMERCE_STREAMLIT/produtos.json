@@ -2,14 +2,14 @@
     {
         "id": 0,
         "desc": "CELULAR",
-        "preco": 17000.99,
+        "preco": 17256.00485,
         "estoque": 6,
         "id_categoria": 0
     },
     {
         "id": 1,
-        "desc": "MESA",
-        "preco": 500.0,
+        "desc": "MESA REDONDA",
+        "preco": 507.5,
         "estoque": 7,
         "id_categoria": 1
     }

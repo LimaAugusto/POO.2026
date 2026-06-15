@@ -8,9 +8,9 @@
     },
     {
         "id": 1,
-        "nome": "teste",
-        "email": "teste",
+        "nome": "TESTE",
+        "email": "TESTE",
         "fone": 123456.0,
-        "senha": "123"
+        "senha": "12345"
     }
 ]

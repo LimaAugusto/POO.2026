@@ -1,4 +1,5 @@
 import json
+
 class Carrinho:
     def __init__(self, id, desc, qtd, preco, id_produto, id_cliente):
         self.setId(id)
@@ -137,3 +138,10 @@ class CarrinhoDAO:
         self.Abrir()
         self.historico.sort(key = lambda x: x.id)
         return self.historico
+
+    def Retornar_carrinho_ativo(self):
+        # RETORNA TODOS OS ITENS ATIVOS NO CARRINHO, DE TODOS OS CLIENTES
+        # (DIFERENTE DE Visualizar_carrinho, QUE FILTRA POR id_cliente)
+        self.Abrir()
+        self.carrinho.sort(key = lambda x: x.id)
+        return self.carrinho

@@ -28,9 +28,12 @@ class View:
 
     @staticmethod
     def inserir_cliente(nome, email, fone, senha):
-        c = Cliente(0, nome, email, fone, senha)
         if nome == "": raise ValueError("NOME INVÁLIDO")
         if email == "": raise ValueError("E-MAIL INVÁLIDO")
+        for obj in View.listar_cliente():
+            if obj.getEmail() == email:
+                raise ValueError("JÁ EXISTE UM CLIENTE CADASTRADO COM ESTE E-MAIL!")
+        c = Cliente(0, nome, email, fone, senha)
         ClienteDAO().inserir(c)
         return { "id" : c.getId(), "nome" : c.getNome() }
 
@@ -42,6 +45,9 @@ class View:
     def atualizar_cliente(id, nome, email, fone, senha):
         if nome == "": raise ValueError("NOME INVÁLIDO")
         if email == "": raise ValueError("E-MAIL INVÁLIDO")
+        for obj in View.listar_cliente():
+            if obj.getEmail() == email and obj.getId() != id:
+                raise ValueError("JÁ EXISTE UM CLIENTE CADASTRADO COM ESTE E-MAIL!")
         c = Cliente(id, nome, email, fone, senha)
         verifica = ClienteDAO().atualizar(c)
         if verifica == True:
@@ -50,7 +56,10 @@ class View:
     
     @staticmethod
     def excluir_cliente(id):
-        c = Cliente(id, "nome", "email", "fone", "senha")
+        for venda in VendaDAO().listar():
+            if venda.getId_Cliente() == id:
+                raise ValueError("NÃO É POSSÍVEL EXCLUIR: ESTE CLIENTE JÁ POSSUI COMPRAS REALIZADAS!")
+        c = Cliente(id, "nome", "email", 0, "senha")
         return ClienteDAO().excluir(c)
     
     #----- CRUD CLIENTE -----
@@ -69,6 +78,9 @@ class View:
     
     @staticmethod
     def excluir_categoria(id):
+        for p in ProdutoDAO().listar():
+            if p.getId_Categoria() == id:
+                raise ValueError("NÃO É POSSÍVEL EXCLUIR: EXISTEM PRODUTOS NESTA CATEGORIA!")
         c = Categoria(id, "desc")
         return CategoriaDAO().excluir(c)
     
@@ -87,6 +99,8 @@ class View:
     @staticmethod
     def inserir_produto(desc, preco, estoque, id_cat):
         if desc == "": raise ValueError("DESCRIÇÃO INVÁLIDA")
+        if CategoriaDAO().listar_id(id_cat) is None:
+            raise ValueError("CATEGORIA INEXISTENTE! INFORME UM ID DE CATEGORIA VÁLIDO.")
         p = Produto(0, desc, preco, estoque, id_cat)
         ProdutoDAO().inserir(p)
     
@@ -96,11 +110,20 @@ class View:
     
     @staticmethod
     def excluir_produto(id):
+        for item in CarrinhoDAO().Retornar_historico():
+            if item.getId_Produto() == id:
+                raise ValueError("NÃO É POSSÍVEL EXCLUIR: ESTE PRODUTO JÁ FOI VENDIDO!")
+        for item in CarrinhoDAO().Retornar_carrinho_ativo():
+            if item.getId_Produto() == id:
+                raise ValueError("NÃO É POSSÍVEL EXCLUIR: ESTE PRODUTO ESTÁ NO CARRINHO DE UM CLIENTE!")
         p = Produto(id, "desc", 00.0, 0, 0)
         return ProdutoDAO().excluir(p)
     
     @staticmethod
     def atualizar_produto(id, desc, preco, estoque, id_cat):
+        if desc == "": raise ValueError("DESCRIÇÃO INVÁLIDA")
+        if CategoriaDAO().listar_id(id_cat) is None:
+            raise ValueError("CATEGORIA INEXISTENTE! INFORME UM ID DE CATEGORIA VÁLIDO.")
         c = Produto(id, desc, preco, estoque, id_cat)
         verifica = ProdutoDAO().atualizar(c)
         if verifica == True:

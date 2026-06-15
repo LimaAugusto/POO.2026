@@ -42,7 +42,7 @@ class ManterClienteUI:
             op = st.selectbox("ATUALIZAÇÃO DE CLIENTES", clientes)
             nome = st.text_input("INFORME SEU NOVO NOME", op.getNome())
             email = st.text_input("INFORME SEU NOVO EMAIL", op.getEmail())
-            fone = st.text_input("INFORME SEU NOVO TELEFONE", op.getFone())
+            fone = st.number_input("INFORME SEU NOVO TELEFONE", op.getFone())
             senha = st.text_input("INFORME SUA NOVA SENHA", op.getSenha(), type="password")
             if st.button("ATUALIZAR"):
                 id = op.getId()
