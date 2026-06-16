@@ -2,13 +2,14 @@ from models.dao import DAO
 import json
 
 class Produto:
-    def __init__(self, id, desc, preco, estoque, id_categoria):
+    def __init__(self, id, desc, preco, estoque, id_categoria, imagem = None):
 #       ATRIBUTOS DA CLASSE PRODUTO:
         self.setId(id)                      # <-- ID DO PRODUTO
         self.setDesc(desc)                  # <-- ID DA DESCRIÇÃO
         self.setPreco(preco)                # <-- PREÇO DO PRODUTO
         self.setEstoque(estoque)            # <-- QUANTIDADE DO PRODUTO NO ESTOQUE
         self.setId_Categoria(id_categoria)  # <-- ID DA CATEGORIA DAQUELE PRODUTO
+        self.setImagem(imagem)              # <-- IMAGEM DO PRODUTO (BASE64) OU None SE NÃO HOUVER
 
     #----- GETTERS -----
 
@@ -26,6 +27,9 @@ class Produto:
     
     def getId_Categoria(self):
         return self.id_categoria
+    
+    def getImagem(self):
+        return self.imagem
 
     #----- GETTERS -----
 
@@ -50,6 +54,12 @@ class Produto:
         if id_cat < 0: raise ValueError("VALOR INVÁLIDO!")
         self.id_categoria = id_cat
 
+    def setImagem(self, imagem):
+        # ACEITA None (SEM IMAGEM) OU UMA STRING BASE64 COM A IMAGEM DO PRODUTO
+        if imagem is not None and not isinstance(imagem, str):
+            raise ValueError("IMAGEM INVÁLIDA!")
+        self.imagem = imagem
+
     #----- SETTERS -----
 
     #----- TO_STRING -----
@@ -62,7 +72,7 @@ class Produto:
     # ----- TO_JSON -----
 
     def to_json(self):
-        return { "id" : self.id, "desc" : self.desc, "preco" : self.preco, "estoque" : self.estoque, "id_categoria" : self.id_categoria }
+        return { "id" : self.id, "desc" : self.desc, "preco" : self.preco, "estoque" : self.estoque, "id_categoria" : self.id_categoria, "imagem" : self.imagem }
     
     # ----- TO_JSON -----
 
@@ -70,7 +80,9 @@ class Produto:
 
     @staticmethod
     def from_json(dic):
-        return Produto(dic["id"], dic["desc"], dic["preco"], dic["estoque"], dic["id_categoria"])
+        return Produto(dic["id"], dic["desc"], dic["preco"], dic["estoque"], dic["id_categoria"], dic.get("imagem", None))
+        # NOTA: dic.get("imagem", None) GARANTE COMPATIBILIDADE COM REGISTROS ANTIGOS
+        # QUE NÃO POSSUEM O CAMPO "imagem" NO JSON
     
     # ----- FROM_JSON -----
 

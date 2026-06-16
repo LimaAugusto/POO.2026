@@ -97,11 +97,11 @@ class View:
     #----- CRUD PRODUTOS -----
 
     @staticmethod
-    def inserir_produto(desc, preco, estoque, id_cat):
+    def inserir_produto(desc, preco, estoque, id_cat, imagem = None):
         if desc == "": raise ValueError("DESCRIÇÃO INVÁLIDA")
         if CategoriaDAO().listar_id(id_cat) is None:
             raise ValueError("CATEGORIA INEXISTENTE! INFORME UM ID DE CATEGORIA VÁLIDO.")
-        p = Produto(0, desc, preco, estoque, id_cat)
+        p = Produto(0, desc, preco, estoque, id_cat, imagem)
         ProdutoDAO().inserir(p)
     
     @staticmethod
@@ -120,11 +120,11 @@ class View:
         return ProdutoDAO().excluir(p)
     
     @staticmethod
-    def atualizar_produto(id, desc, preco, estoque, id_cat):
+    def atualizar_produto(id, desc, preco, estoque, id_cat, imagem = None):
         if desc == "": raise ValueError("DESCRIÇÃO INVÁLIDA")
         if CategoriaDAO().listar_id(id_cat) is None:
             raise ValueError("CATEGORIA INEXISTENTE! INFORME UM ID DE CATEGORIA VÁLIDO.")
-        c = Produto(id, desc, preco, estoque, id_cat)
+        c = Produto(id, desc, preco, estoque, id_cat, imagem)
         verifica = ProdutoDAO().atualizar(c)
         if verifica == True:
             return True
