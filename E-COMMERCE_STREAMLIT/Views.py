@@ -4,6 +4,7 @@ from models.categoria import Categoria, CategoriaDAO
 from models.produto import Produto, ProdutoDAO
 from models.carrinho import Carrinho, CarrinhoDAO
 from models.venda import Venda, VendaDAO
+from models.promocao import Promocao, PromocaoDAO
 
 class View:
 
@@ -59,7 +60,7 @@ class View:
         for venda in VendaDAO().listar():
             if venda.getId_Cliente() == id:
                 raise ValueError("NÃO É POSSÍVEL EXCLUIR: ESTE CLIENTE JÁ POSSUI COMPRAS REALIZADAS!")
-        c = Cliente(id, "nome", "email", 0, "senha")
+        c = Cliente(id, "nome", "email", "fone", "senha")
         return ClienteDAO().excluir(c)
     
     #----- CRUD CLIENTE -----
@@ -135,9 +136,12 @@ class View:
     #----- CRUD CARRINHO -----
 
     @staticmethod
-    def inserir_produto_carrinho(quantidade, id_produto, id_cliente):
+    def inserir_produto_carrinho(quantidade, id_produto, id_cliente, preco_promocional = None):
         produto = ProdutoDAO().listar_id(id_produto)
-        item = Carrinho(id = 0, desc = produto.getDesc(), qtd = quantidade, preco = produto.getPreco(), id_produto = id_produto, id_cliente = id_cliente)
+        if produto is None: return False
+        # SE HOUVER PREÇO PROMOCIONAL, USA ELE; CASO CONTRÁRIO, CONGELA O PREÇO ATUAL
+        preco = preco_promocional if preco_promocional is not None else produto.getPreco()
+        item = Carrinho(id = 0, desc = produto.getDesc(), qtd = quantidade, preco = preco, id_produto = id_produto, id_cliente = id_cliente)
         CarrinhoDAO().Inserir_produto(item)
         return True
 
@@ -207,6 +211,8 @@ class View:
 
     @staticmethod
     def reajustar_preco(percentual):
+        if percentual <= -100:
+            raise ValueError("PERCENTUAL INVÁLIDO! O REAJUSTE NÃO PODE ZERAR OU TORNAR O PREÇO NEGATIVO.")
         produtos = ProdutoDAO().listar()
         for p in produtos:
             novo_preco = p.getPreco() + (p.getPreco() * (percentual / 100))
@@ -231,3 +237,32 @@ class View:
         return CarrinhoDAO().Retornar_historico()
     
     #----- NOVOS MÉTODOS (VENDAS E REAJUSTE) -----
+
+    #----- CRUD PROMOÇÃO -----
+
+    @staticmethod
+    def inserir_promocao(id_categoria, data_inicio, data_fim, percentual):
+        if CategoriaDAO().listar_id(id_categoria) is None:
+            raise ValueError("CATEGORIA INEXISTENTE!")
+        if data_fim <= data_inicio:
+            raise ValueError("A DATA DE FIM DEVE SER POSTERIOR À DATA DE INÍCIO!")
+        p = Promocao(0, id_categoria, data_inicio, data_fim, percentual)
+        PromocaoDAO().inserir(p)
+
+    @staticmethod
+    def listar_promocao():
+        return PromocaoDAO().listar()
+
+    @staticmethod
+    def excluir_promocao(id):
+        p = Promocao(id, 0, datetime.now(), datetime.now(), 1)
+        return PromocaoDAO().excluir(p)
+
+    @staticmethod
+    def get_promocao_ativa(id_categoria):
+        # RETORNA O MAIOR DESCONTO ATIVO PARA A CATEGORIA, OU None SE NÃO HOUVER
+        ativas = PromocaoDAO().listar_ativas_por_categoria(id_categoria)
+        if not ativas: return None
+        return max(ativas, key = lambda p: p.getPercentual())
+
+    #----- CRUD PROMOÇÃO -----
