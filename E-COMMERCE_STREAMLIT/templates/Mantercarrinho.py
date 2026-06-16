@@ -150,4 +150,14 @@ class ManterCarrinhoUI:
             df = pd.DataFrame(list_dic)
             st.dataframe(df, hide_index = True)
             st.write(f"**TOTAL: R$ {venda.getTotal():.2f}**")
+
+            # STATUS DE ENTREGA
+            entrega = View.listar_entrega_venda(venda.getId())
+            if entrega:
+                status_emoji = {"Pendente": "⏳", "Em Trânsito": "🚚", "Entregue": "✅"}
+                emoji = status_emoji.get(entrega.getStatus(), "")
+                st.write(f"**ENTREGA:** {emoji} {entrega.getStatus()}")
+            else:
+                st.write("**ENTREGA:** ⏸ AGUARDANDO ALOCAÇÃO")
+
             st.divider()

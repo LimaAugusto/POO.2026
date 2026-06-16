@@ -35,3 +35,37 @@ class LoginUI:
                 st.error(erro) 
                 time.sleep(2)
                 st.rerun()
+
+    def entrar_entregador():
+        st.header("ENTRAR COMO ENTREGADOR")
+        email = st.text_input("E-MAIL")
+        senha = st.text_input("SENHA", type = "password")
+        if st.button("ENTRAR"):
+            try:
+                e = View.autenticar_entregador(email, senha)
+                if e is None:
+                    st.error("E-MAIL OU SENHA INVÁLIDO(S)!")
+                else:
+                    st.session_state["entregador_id"] = e["id"]
+                    st.session_state["entregador_nome"] = e["nome"]
+                time.sleep(2)
+                st.rerun()
+            except Exception as erro:
+                st.error(erro)
+
+    def cadastrar_entregador():
+        st.header("CADASTRO DE ENTREGADOR")
+        nome = st.text_input("NOME")
+        email = st.text_input("E-MAIL")
+        fone = st.text_input("TELEFONE")
+        senha = st.text_input("SENHA", type = "password")
+        if st.button("CADASTRAR"):
+            try:
+                e = View.inserir_entregador(nome, email, fone, senha)
+                st.session_state["entregador_id"] = e["id"]
+                st.session_state["entregador_nome"] = e["nome"]
+                st.success("ENTREGADOR CADASTRADO!")
+                time.sleep(2)
+                st.rerun()
+            except Exception as erro:
+                st.error(erro)

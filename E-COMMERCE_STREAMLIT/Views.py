@@ -5,6 +5,8 @@ from models.produto import Produto, ProdutoDAO
 from models.carrinho import Carrinho, CarrinhoDAO
 from models.venda import Venda, VendaDAO
 from models.promocao import Promocao, PromocaoDAO
+from models.entrega import Entrega, EntregaDAO
+from models.entregador import Entregador, EntregadorDAO
 
 class View:
 
@@ -266,3 +268,75 @@ class View:
         return max(ativas, key = lambda p: p.getPercentual())
 
     #----- CRUD PROMOÇÃO -----
+
+    #----- CRUD ENTREGADOR -----
+
+    @staticmethod
+    def inserir_entregador(nome, email, fone, senha):
+        for obj in EntregadorDAO().listar():
+            if obj.getEmail() == email:
+                raise ValueError("JÁ EXISTE UM ENTREGADOR CADASTRADO COM ESTE E-MAIL!")
+        e = Entregador(0, nome, email, fone, senha)
+        EntregadorDAO().inserir(e)
+        return { "id": e.getId(), "nome": e.getNome() }
+
+    @staticmethod
+    def listar_entregador():
+        return EntregadorDAO().listar()
+
+    @staticmethod
+    def excluir_entregador(id):
+        for entrega in EntregaDAO().listar():
+            if entrega.getId_Entregador() == id:
+                raise ValueError("NÃO É POSSÍVEL EXCLUIR: ESTE ENTREGADOR POSSUI ENTREGAS ALOCADAS!")
+        e = Entregador(id, "nome", "email", "fone", "senha")
+        return EntregadorDAO().excluir(e)
+
+    @staticmethod
+    def autenticar_entregador(email, senha):
+        for obj in EntregadorDAO().listar():
+            if obj.getEmail() == email and obj.getSenha() == senha:
+                return { "id": obj.getId(), "nome": obj.getNome() }
+        return None
+
+    #----- CRUD ENTREGADOR -----
+
+    #----- CRUD ENTREGA -----
+
+    @staticmethod
+    def alocar_entrega(id_venda, id_entregador):
+        # VERIFICA SE JÁ EXISTE ENTREGA PARA ESSA VENDA
+        existentes = EntregaDAO().listar_por_venda(id_venda)
+        if existentes:
+            raise ValueError("ESTA VENDA JÁ POSSUI UMA ENTREGA ALOCADA!")
+        if EntregadorDAO().listar_id(id_entregador) is None:
+            raise ValueError("ENTREGADOR INEXISTENTE!")
+        e = Entrega(0, id_venda, id_entregador)
+        EntregaDAO().inserir(e)
+
+    @staticmethod
+    def listar_entrega():
+        return EntregaDAO().listar()
+
+    @staticmethod
+    def listar_entregas_entregador(id_entregador):
+        return EntregaDAO().listar_por_entregador(id_entregador)
+
+    @staticmethod
+    def listar_entrega_venda(id_venda):
+        entregas = EntregaDAO().listar_por_venda(id_venda)
+        return entregas[0] if entregas else None
+
+    @staticmethod
+    def avancar_status(id_entrega):
+        entrega = EntregaDAO().listar_id(id_entrega)
+        if entrega is None:
+            raise ValueError("ENTREGA NÃO ENCONTRADA!")
+        proximo = entrega.proximo_status()
+        if proximo is None:
+            raise ValueError("ESTA ENTREGA JÁ FOI CONCLUÍDA!")
+        entrega.setStatus(proximo)
+        EntregaDAO().atualizar(entrega)
+        return proximo
+
+    #----- CRUD ENTREGA -----
