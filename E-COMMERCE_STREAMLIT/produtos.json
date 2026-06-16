@@ -19,7 +19,15 @@
         "id": 0,
         "desc": "CELULAR",
         "preco": 17256.00485,
-        "estoque": 4,
+        "estoque": 3,
+        "id_categoria": 0,
+        "imagem": null
+    },
+    {
+        "id": 3,
+        "desc": "Smartphone",
+        "preco": 500.0,
+        "estoque": 1,
         "id_categoria": 0,
         "imagem": null
     }

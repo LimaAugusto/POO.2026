@@ -4,5 +4,11 @@
         "id_venda": 1,
         "id_entregador": 0,
         "status": "Entregue"
+    },
+    {
+        "id": 1,
+        "id_venda": 4,
+        "id_entregador": 0,
+        "status": "Pendente"
     }
 ]
