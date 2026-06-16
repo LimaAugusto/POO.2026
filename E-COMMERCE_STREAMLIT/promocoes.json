@@ -1,16 +1,9 @@
 [
     {
         "id": 0,
-        "id_categoria": 1,
-        "data_inicio": "2026-06-16T00:00:00",
-        "data_fim": "2026-06-17T23:59:59",
-        "percentual": 10.0
-    },
-    {
-        "id": 1,
         "id_categoria": 0,
         "data_inicio": "2026-06-16T00:00:00",
         "data_fim": "2026-06-17T23:59:59",
-        "percentual": 20.0
+        "percentual": 50.0
     }
 ]

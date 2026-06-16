@@ -10,5 +10,11 @@
         "id_venda": 4,
         "id_entregador": 0,
         "status": "Pendente"
+    },
+    {
+        "id": 2,
+        "id_venda": 5,
+        "id_entregador": 0,
+        "status": "Entregue"
     }
 ]
